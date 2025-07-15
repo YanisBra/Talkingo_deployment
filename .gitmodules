@@ -1,0 +1,6 @@
+[submodule "Talkingo_backend"]
+	path = Talkingo_backend
+	url = https://github.com/YanisBra/Talkingo_backend
+[submodule "Talkingo_frontend"]
+	path = Talkingo_frontend
+	url = https://github.com/YanisBra/Talkingo_frontend
