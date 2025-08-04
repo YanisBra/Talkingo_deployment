@@ -1,0 +1,43 @@
+version: '3.8'
+
+services:
+  database:
+    image: mysql:8
+    container_name: talkingo_mysql_container
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: talkingo_db
+    volumes:
+      - mysql_data:/var/lib/mysql
+    ports:
+      - "3306:3306"
+    networks:
+      - talkingo-network
+
+  backend:
+    build:
+      context: ./Talkingo_backend
+    container_name: talkingo_backend_container
+    ports:
+      - "8082:80"
+    depends_on:
+      - database
+    networks:
+      - talkingo-network
+
+  frontend:
+    build:
+      context: ./Talkingo_frontend
+    container_name: talkingo_frontend_container
+    ports:
+      - "5173:5173"
+    networks:
+      - talkingo-network
+    command: ["npm", "run", "dev", "--", "--host"]
+
+volumes:
+  mysql_data:
+
+networks:
+  talkingo-network:
+    driver: bridge
